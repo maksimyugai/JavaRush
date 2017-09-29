@@ -1,0 +1,13 @@
+<div class="wdghtml" taskKey="com.javarush.task.task16.task1633">
+<h3>Отдебажим все на свете</h3>
+<p>Разобраться, что делает программа.</p>
+<p>Почитать про UncaughtExceptionHandler - это важно.</p>
+<p>Еще раз внимательно посмотреть программу.</p>
+<p>Разобраться - продебажить - почему наш OurUncaughtExceptionHandler не срабатывает.</p>
+<p>Исправить ошибку, т.е. все должно работать. :)</p>
+<p></p>
+<p>Ожидаемый результат в произвольном порядке:</p>
+<p>Нить 1: My exception message</p>
+<p>Нить 2: My exception message</p>
+
+</div>
