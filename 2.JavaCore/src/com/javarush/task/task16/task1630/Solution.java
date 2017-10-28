@@ -1,7 +1,22 @@
 package com.javarush.task.task16.task1630;
 
 /*
-* Требования:
+* 1. Разберись, что делает программа.
+2. В статическом блоке считай 2 имени файла firstFileName и secondFileName.
+3. Внутри класса Solution создай нить public static ReadFileThread, которая реализует
+интерфейс ReadFileInterface (Подумай, что больше подходит — Thread или Runnable).
+3.1. Метод setFileName должен устанавливать имя файла, из которого будет читаться содержимое.
+3.2. Метод getFileContent должен возвращать содержимое файла.
+3.3. В методе run считай содержимое файла, закрой поток. Раздели пробелом строки файла.
+4. Подумай, в каком месте нужно подождать окончания работы нити, чтобы обеспечить последовательный вывод файлов.
+4.1. Для этого добавь вызов соответствующего метода.
+
+Ожидаемый вывод:
+[все тело первого файла]
+[все тело второго файла]
+
+
+Требования:
 1. Статический блок класса Solution должен считывать с консоли имена двух файлов и сохранять их в переменные firstFileName и secondFileName.
 2. Объяви в классе Solution public static класс ReadFileThread.
 3. Класс ReadFileThread должен реализовывать интерфейс ReadFileInterface.
@@ -11,25 +26,22 @@ package com.javarush.task.task16.task1630;
 Возвращаемое значение - это одна строка, состоящая из строк файла, разделенных пробелами.
 6. Метод systemOutPrintln должен вызывать метод join у созданного объекта f.
 7. Вывод программы должен состоять из 2х строк. Каждая строка - содержимое одного файла.
-
-/home/maksimyugai/Dropbox/Development/Java/test/sometest.txt
-/home/maksimyugai/Dropbox/Development/Java/test/sometest2.txt
 */
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Solution {
     public static String firstFileName;
     public static String secondFileName;
 
     //add your code here - добавьте код тут
+
     static {
-        try {
-            firstFileName = String.valueOf(new BufferedReader(new InputStreamReader(System.in)).readLine());
-            secondFileName = String.valueOf(new BufferedReader(new InputStreamReader(System.in)).readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        firstFileName = String.valueOf(new BufferedReader(new InputStreamReader(System.in)));
+        secondFileName = String.valueOf(new BufferedReader(new InputStreamReader(System.in)));
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -42,7 +54,6 @@ public class Solution {
         f.setFileName(fileName);
         f.start();
         //add your code here - добавьте код тут
-        f.join();
         System.out.println(f.getFileContent());
     }
 
@@ -57,39 +68,22 @@ public class Solution {
         void start();
     }
 
-    //3. Внутри класса Solution создай нить public static ReadFileThread, которая реализует
-    //   интерфейс ReadFileInterface (Подумай, что больше подходит — Thread или Runnable).
-    public static class ReadFileThread extends Thread implements ReadFileInterface {
-        String fullFileName = "";
-        String fileContent = "";
+    //add your code here - добавьте код тут
 
-        //3.1. Метод setFileName должен устанавливать имя файла, из которого будет читаться содержимое.
+    public static class ReadFileThread extends Thread implements ReadFileInterface {
         @Override
         public void setFileName(String fullFileName) {
-            this.fullFileName = fullFileName;
+
         }
 
-        //3.2. Метод getFileContent должен возвращать содержимое файла.
         @Override
         public String getFileContent() {
-            return fileContent.trim();
+            return null;
         }
-/*
 
-        3.3. В методе run считай содержимое файла, закрой поток. Раздели пробелом строки файла.
-        5.  Метод run класса ReadFileThread должен считывать строки из файла, установленного методом setFileName.
-            А метод getFileContent, этого же класса, должен возвращать вычитанный контент.
-            Возвращаемое значение - это одна строка, состоящая из строк файла, разделенных пробелами.
-*/
         @Override
-        public void run() {
-            try (BufferedReader bf = new BufferedReader(new FileReader(this.fullFileName))) {
-                while (bf.ready()) {
-                    this.fileContent += bf.readLine() + " ";
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+        public void start() {
+
         }
     }
 }
