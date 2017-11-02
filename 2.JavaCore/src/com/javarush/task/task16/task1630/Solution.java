@@ -76,6 +76,7 @@ public class Solution {
 
         }
 
+//  3.2. Метод getFileContent должен возвращать содержимое файла.
         @Override
         public String getFileContent() {
             return null;
