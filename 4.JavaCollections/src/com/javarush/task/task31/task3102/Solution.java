@@ -2,6 +2,7 @@ package com.javarush.task.task31.task3102;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 /* 
@@ -21,22 +22,25 @@ import java.util.List;
 */
 public class Solution {
     public static List<String> getFileTree(String root) throws IOException {
-        List<String> list = null;
+        List<String> list = new LinkedList<>();
         File rootDir = new File(root);
 
         for (File f : rootDir.listFiles()) {
-            list.add(f.getParentFile().getName());
+            if (f.isDirectory()) {
+                String[] listOfFiles = f.list();
+                String s = f.getAbsolutePath();
+            }
+
+            if (f.isFile()) list.add(f.getParent());
+//            System.out.println(f.getName());
         }
+
         return list;
 
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println(getFileTree("/home/maksimyugai/"));
 //        getFileTree("/home/maksimyugai/");
-        File ff = new File("/home/maksimyugai/");
-        for (File fff :
-                ff.listFiles()) {
-            System.out.println(fff.getName());
-        }
     }
 }
