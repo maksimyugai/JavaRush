@@ -10,3 +10,11 @@ super secret key, Thread-0, it's an example
 3. Метод main в тестировании не участвует.
 
 
+Требования:
+1.	Создай private class MyUncaughtExceptionHandler с конструктором по-умолчанию в классе MyThread.
+2.	Во время перехвата исключения, MyUncaughtExceptionHandler должен вызвать Thread.sleep(500).
+3.	Затем, MyUncaughtExceptionHandler должен выводить в консоль secretKey, имя трэда и сообщение возникшего исключения.
+4.	Для вывода сообщения используй String.format(...).
+5.	Нужно обеспечить логирование возникновения исключения.
+
+

@@ -9,8 +9,8 @@ taskKey="com.javarush.task.task24.task2412"
 ... open 125,64 and last 123,43 - тут прибыль = 123,43-125,64
 2. Разобраться с *Format-ами и исправить IllegalArgumentException. Подсказка - это одна строчка.
 Пример вывода:
-Fake Apple Inc.  AAPL | 17-11-2025 open 125,64 and last 123,43
-Fake Oracle Corporation  ORCL | 21-08-1989 closed 0,15
+Fake Apple Inc.   AAPL | 16-03-2027 open 125,64 and last 123,43
+Fake Applied Materials, Inc.   AMAT | 15-01-1983 closed 0,26
 
 
 Требования:
