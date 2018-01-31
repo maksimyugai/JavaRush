@@ -4331,3 +4331,6 @@ java.lang.AssertionError
 2018-02-01 00:29:07 INFO  ApacheHttpClient.sendEvent(450) - responseCode = 200
 2018-02-01 00:30:07 INFO  ApacheHttpClient.sendEvent(450) - responseCode = 504
 2018-02-01 00:31:07 INFO  ApacheHttpClient.sendEvent(450) - responseCode = 200
+2018-02-01 00:32:06 INFO  ApacheHttpClient.sendEvent(450) - responseCode = 200
+2018-02-01 00:32:55 INFO  ApacheHttpClient.testConnection(178) - responseCode = 200
+2018-02-01 00:32:55 INFO  ApacheHttpClient.testConnection(185) - result = true
