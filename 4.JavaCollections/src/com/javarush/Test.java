@@ -11,5 +11,6 @@ public class Test {
                 Paths.get("~/Dropbox/Development/Java/JavaRush/JavaRushTasks/out.log")));
 
         System.out.println(content);
+        
     }
 }
