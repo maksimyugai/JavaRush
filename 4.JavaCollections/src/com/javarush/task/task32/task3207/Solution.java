@@ -1,6 +1,7 @@
 package com.javarush.task.task32.task3207;
 
 import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -9,6 +10,13 @@ import java.rmi.server.UnicastRemoteObject;
 
 /* 
 К серверу по RMI
+
+Требования:
+1. В методе run() необходимо из registry получить сервис с именем UNIC_BINDING_NAME.
+2. В методе run() необходимо вызвать метод doubleString (String) у полученного сервиса.
+3. В методе run() необходимо вывести в консоль результат вызова метода doubleString (String).
+4. В методе run() должен быть перехват исключения RemoteException.
+5. В методе run() должен быть перехват исключения NotBoundException.
 */
 public class Solution {
     public static final String UNIC_BINDING_NAME = "double.string";
@@ -19,6 +27,13 @@ public class Solution {
         @Override
         public void run() {
             //напишите тут ваш код
+            try {
+                DoubleString ds = (DoubleString) registry.lookup(UNIC_BINDING_NAME);
+                String result = ds.doubleString("test");
+                System.out.println(result);
+            } catch (RemoteException | NotBoundException e) {
+                e.printStackTrace();
+            }
         }
     });
 
