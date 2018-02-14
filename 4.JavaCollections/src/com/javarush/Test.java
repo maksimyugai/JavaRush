@@ -1,33 +1,32 @@
 package com.javarush;
 
-import java.security.MessageDigest;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.security.NoSuchAlgorithmException;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties({"some"})
 public class Test {
     //текст для хеширования
-    public static final String TEXT = "Prologistic.com.ua";
+    private String name;
+    private int id;
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public Test() {}
 
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(TEXT.getBytes());
+    public Test(String name,int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-        byte byteData[] = md.digest();
+    public static void main(String[] args) throws NoSuchAlgorithmException, JsonProcessingException {
+        Test test = new Test();
 
-        //конвертируем байт в шестнадцатеричный формат первым способом
-        StringBuffer sb = new StringBuffer();
-        for (byte aByteData : byteData) {
-            sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
-        }
-        System.out.println("Текст в шестнадцатеричном виде : " + sb.toString());
+        String result = new ObjectMapper().writeValueAsString(test);
 
-        //конвертируем байт в шестнадцатеричный формат вторым способом
-        StringBuffer hexString = new StringBuffer();
-        for (byte aByteData : byteData) {
-            String hex = Integer.toHexString(0xff & aByteData);
-            if (hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        System.out.println("Текст в шестнадцатеричном виде : " + hexString.toString());
+        System.out.println(result);
     }
 }
