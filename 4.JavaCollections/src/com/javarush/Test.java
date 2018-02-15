@@ -1,32 +1,43 @@
 package com.javarush;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.StringWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties({"some"})
 public class Test {
-    //текст для хеширования
-    private String name;
-    private int id;
 
-    public Test() {}
-
-    public Test(String name,int id) {
-        this.name = name;
-        this.id = id;
+    public static void main(String[] args) throws NoSuchAlgorithmException, JsonProcessingException, JAXBException {
+        String logProperties = Test.class.getPackage().getName();
+        Path path = Paths.get(logProperties).toAbsolutePath();
+        System.out.println(path.toString());
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, JsonProcessingException {
-        Test test = new Test();
+    public static String toXmlWithComment(Object obj, String tagName, String comment) throws JAXBException {
+        StringBuilder result = new StringBuilder();
+        comment = "<!--" + comment + "-->\n";
 
-        String result = new ObjectMapper().writeValueAsString(test);
+        StringWriter stringWriter = new StringWriter();
+        JAXBContext context = JAXBContext.newInstance(obj.getClass());
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(obj, stringWriter);
 
-        System.out.println(result);
+        if (!stringWriter.toString().contains(tagName)) return stringWriter.toString();
+
+        for (String s : stringWriter.toString().split("\n")) {
+            if (s.contains(tagName) && !s.contains("CDATA")) {
+                result.append(comment);
+                result.append(s);
+            } else
+                result.append(s);
+        }
+
+        return result.toString();
     }
 }
