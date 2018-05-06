@@ -1,14 +1,19 @@
 package com.javarush.task.task20.task2018;
 
-import java.io.Serializable;
+import java.io.*;
 
 /* 
 Найти ошибки
+Класс A не должен реализовывать интерфейсы Serializable и Externalizable.
+В сигнатуре класса В ошибки нет :).
+В методе main ошибок нет.
 */
 public class Solution {
     public static class A {
 
         protected String nameA = "A";
+
+        public A() {}
 
         public A(String nameA) {
             this.nameA += nameA;
@@ -43,3 +48,4 @@ public class Solution {
         System.out.println("nameA: " + b1.nameA + ", nameB: " + b1.nameB);
     }
 }
+
