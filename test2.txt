@@ -1,0 +1,4 @@
+This is new file with new lines.
+This is second line of new file.
+This is third line of new file, doesn't it?
+What do you think about it?

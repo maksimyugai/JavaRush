@@ -8,9 +8,9 @@ public class Solution {
 
     //add your code here - добавьте код тут
     static {
-        try {
-            firstFileName = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            secondFileName = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        try(BufferedReader bf = new BufferedReader(new InputStreamReader(System.in))) {
+            firstFileName = bf.readLine();
+            secondFileName = bf.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,6 +26,7 @@ public class Solution {
         f.setFileName(fileName);
         f.start();
         //add your code here - добавьте код тут
+        f.join();
         System.out.println(f.getFileContent());
     }
 
@@ -42,36 +43,33 @@ public class Solution {
 
     //add your code here - добавьте код тут
     public static class ReadFileThread extends Thread implements ReadFileInterface {
-        FileReader file;
+        String content = "";
+        BufferedReader buff;
 
         @Override
-        public void run() {
+        public void setFileName(String fullFileName) {
             try {
-                file = new FileReader("JavaRushPlugin.properties");
-                file.close();
-            } catch (IOException e) {
+                buff = new BufferedReader(new FileReader(fullFileName));
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
 
-        @Override
-        public void setFileName(String fullFileName) {
-
-        }
 
         @Override
         public String getFileContent() {
-            StringBuilder content = new StringBuilder();
+            return content.trim();
+        }
 
+        @Override
+        public void run() {
             try {
-                while (file.ready()) {
-                    content.append((char) file.read());
+                while (buff.ready()) {
+                    content = content + " " + buff.readLine();
                 }
             } catch (IOException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
             }
-
-            return content.toString();
         }
     }
 }
